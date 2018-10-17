@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asos.Core.Testing.Pact", "Asos.Core.Testing.Pact\Asos.Core.Testing.Pact.csproj", "{25F677D7-BCA9-44C5-B781-BF7B7CA78E80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asos.Core.Testing.Pact", "src\Asos.Core.Testing.Pact\Asos.Core.Testing.Pact.csproj", "{25F677D7-BCA9-44C5-B781-BF7B7CA78E80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asos.Core.Testing.Pact.UnitTests", "Asos.Core.Testing.Pact.UnitTests\Asos.Core.Testing.Pact.UnitTests.csproj", "{02C84184-CAD4-41AA-A589-DFD5094FB4CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asos.Core.Testing.Pact.UnitTests", "test\Asos.Core.Testing.Pact.UnitTests\Asos.Core.Testing.Pact.UnitTests.csproj", "{02C84184-CAD4-41AA-A589-DFD5094FB4CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
