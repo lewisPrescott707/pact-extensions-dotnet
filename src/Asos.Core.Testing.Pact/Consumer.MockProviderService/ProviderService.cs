@@ -17,20 +17,25 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
 
         internal IMockProviderService MockProviderService;
 
+        private readonly IPactBuilder _pactBuilder;
+
         private static readonly IConfigurationRoot Config = new EnvironmentsConfig().Config;
 
         public ProviderService(string serviceConsumerName, string providerName)
         {
             Port = int.Parse(Config["providerService:port"]);
-            var pactBuilder = new PactBuilder(new PactConfig()
-                {
+            _pactBuilder = new PactBuilder(new PactConfig {
                     PactDir = Config["pactConfig:pactDir"],
                     LogDir = Config["pactConfig:pactDir"],
                     SpecificationVersion = Config["pactConfig:specificationVersion"]
             })
                 .ServiceConsumer(serviceConsumerName)
                 .HasPactWith(providerName);
-            MockProviderService = pactBuilder.MockService(Port);
+        }
+
+        public void Initialize()
+        {
+            MockProviderService = _pactBuilder.MockService(Port);
             MockProviderService.ClearInteractions();
         }
 
