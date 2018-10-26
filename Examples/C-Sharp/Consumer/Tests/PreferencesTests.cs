@@ -55,7 +55,6 @@ namespace Asos.Customer.Update.Tool.Api.PactTests.Tests
                 });
         }
 
-        [Category("Local")]
         [Test]
         public void When_Patch_Opt_Out_Customer_Then_Response_OK()
         {
