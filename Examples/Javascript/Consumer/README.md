@@ -8,7 +8,8 @@ System Preferences - Customer Profile API. Consumed by Identity Web.
 2. `npm run pacts` - Run consumer tests
 
 ## Running in docker
-1. run from terminal `docker build -t pact-tests .`
+1. build from terminal `docker build -t pact-tests .`
+2. run `docker run -t pact-tests pacts`
 
 ### TODO
 
