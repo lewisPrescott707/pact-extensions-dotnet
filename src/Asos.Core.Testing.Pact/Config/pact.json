@@ -8,7 +8,7 @@
     "port": 1234
   },
   "pactConfig": {
-    "pactDir": "D:/Pact",
+    "pactDir": "C:\\Pact",
     "specificationVersion": "2.0.0"
   } 
 }

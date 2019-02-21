@@ -15,7 +15,7 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
     {
         protected static int Port { get; set; }
 
-        internal IMockProviderService MockProviderService;
+        public IMockProviderService MockProviderService;
 
         private readonly IPactBuilder _pactBuilder;
 

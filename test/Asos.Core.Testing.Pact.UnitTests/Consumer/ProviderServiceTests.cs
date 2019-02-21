@@ -47,6 +47,15 @@ namespace Asos.Core.Testing.Pact.UnitTests.Consumer
             Assert.AreEqual(jsonExpected, requestBody);
         }
 
+        [Test]
+        public void Given_Setup_MockProviderService__Then_Access_MockProviderService_Not_Null()
+        {
+            var providerService = new ProviderService("consumer", "provider");
+            providerService.Initialize();
+
+            Assert.IsNotNull(providerService.MockProviderService);
+        }
+
         public class TestContract
         {
             [JsonProperty("id")]
