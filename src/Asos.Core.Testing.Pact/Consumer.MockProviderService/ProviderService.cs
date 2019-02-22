@@ -43,58 +43,6 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
 
         public void Build() => PactBuilder.Build();
 
-        public void SetupRequest<TRequest>(string given, string uponReceiving, HttpVerb method, IMatcher url, Dictionary<string, object> headers, TRequest requestBody)
-        {
-            MockProviderService
-                .Given(given)
-                .UponReceiving(uponReceiving)
-                .With(new ProviderServiceRequest
-                {
-                    Method = method,
-                    Path = url,
-                    Headers = headers,
-                    Body = ConstructRequestBody(requestBody)
-                });
-        }
-
-        public void SetupRequest<TRequest>(string given, string uponReceiving, HttpVerb method, string url, Dictionary<string, object> headers, TRequest requestBody)
-        {
-            MockProviderService
-                .Given(given)
-                .UponReceiving(uponReceiving)
-                .With(new ProviderServiceRequest
-                {
-                    Method = method,
-                    Path = url,
-                    Headers = headers,
-                    Body = ConstructRequestBody(requestBody)
-                });
-        }
-
-        public void SetupGetRequest<TRequest>(string given, string uponReceiving, string url, Dictionary<string, object> headers)
-        {
-            MockProviderService
-                .Given(given)
-                .UponReceiving(uponReceiving)
-                .With(new ProviderServiceRequest
-                {
-                    Method = HttpVerb.Get,
-                    Path = url,
-                    Headers = headers
-                });
-        }
-
-        public void SetupResponse<TResponse>(int responseCode, Dictionary<string, object> headers, TResponse responseBody)
-        {
-            MockProviderService
-                .WillRespondWith(new ProviderServiceResponse()
-                {
-                    Status = responseCode,
-                    Body = ConstructResponseBody(responseBody),
-                    Headers = headers
-                });
-        }
-
         public JObject ConstructRequestBody<TRequest>(TRequest request)
         {
             var jsonRequest = request.ToDynamicRequest();
