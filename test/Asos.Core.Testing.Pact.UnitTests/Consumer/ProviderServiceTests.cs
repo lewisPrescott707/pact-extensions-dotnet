@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Asos.Core.Testing.Pact.Consumer.MockProviderService;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -9,10 +10,13 @@ namespace Asos.Core.Testing.Pact.UnitTests.Consumer
     [TestFixture]
     public class ProviderServiceTests
     {
+
+        private string configPath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\\Config";
+
         [Test]
         public void When_Construct_Response_Body__Then_Matchers_Applied_In_Response_Body()
         {
-            var providerService = new ProviderService("consumer", "provider");
+            var providerService = new ProviderService("consumer", "provider", configPath);
             var dateTime = DateTime.Today;
 
             var responseBody = providerService.ConstructResponseBody(new TestContract()
@@ -32,7 +36,7 @@ namespace Asos.Core.Testing.Pact.UnitTests.Consumer
         [Test]
         public void When_Construct_Request_Body__Then_Matchers_Applied_In_Request_Body()
         {
-            var providerService = new ProviderService("consumer", "provider");
+            var providerService = new ProviderService("consumer", "provider", configPath);
             var dateTime = DateTime.Today;
 
             var requestBody = providerService.ConstructRequestBody(new TestContract()
@@ -50,7 +54,7 @@ namespace Asos.Core.Testing.Pact.UnitTests.Consumer
         [Test]
         public void Given_Setup_MockProviderService__Then_Access_MockProviderService_Not_Null()
         {
-            var providerService = new ProviderService("consumer", "provider");
+            var providerService = new ProviderService("consumer", "provider", configPath);
             providerService.Initialize();
 
             Assert.IsNotNull(providerService.MockProviderService);

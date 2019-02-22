@@ -17,9 +17,9 @@ namespace Asos.Core.Testing.Pact.Provider.PactVerifier
         public virtual string PactJson { get; set; }
         public virtual PactContract PactContract { get; set; }
 
-        public ProviderState(HttpClient client)
+        public ProviderState(HttpClient client, string configPath)
         {
-            var pactBrokerConfig = new EnvironmentsConfig().Config;
+            var pactBrokerConfig = new EnvironmentsConfig(configPath).Config;
             client.BaseAddress = new Uri(pactBrokerConfig["pactBroker:url"]);
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(

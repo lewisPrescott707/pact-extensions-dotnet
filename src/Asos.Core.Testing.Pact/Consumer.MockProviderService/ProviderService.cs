@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Asos.Core.Testing.Pact.Config;
 using Asos.Core.Testing.Pact.CustomExtensions;
 using Microsoft.Extensions.Configuration;
@@ -13,18 +14,18 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
 {
     public class ProviderService
     {
-        protected static int Port { get; set; }
+        private int Port { get; set; }
 
         public IMockProviderService MockProviderService;
 
-        private readonly IPactBuilder _pactBuilder;
+        public IPactBuilder PactBuilder;
 
-        private static readonly IConfigurationRoot Config = new EnvironmentsConfig().Config;
+        private IConfigurationRoot Config;
 
-        public ProviderService(string serviceConsumerName, string providerName)
+        public ProviderService(string serviceConsumerName, string providerName, string configPath)
         {
-            Port = int.Parse(Config["providerService:port"]);
-            _pactBuilder = new PactBuilder(new PactConfig {
+            Config = new EnvironmentsConfig(configPath).Config;
+            PactBuilder = new PactBuilder(new PactConfig {
                     PactDir = Config["pactConfig:pactDir"],
                     LogDir = Config["pactConfig:pactDir"],
                     SpecificationVersion = Config["pactConfig:specificationVersion"]
@@ -35,9 +36,12 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
 
         public void Initialize()
         {
-            MockProviderService = _pactBuilder.MockService(Port);
+            Port = int.Parse(Config["providerService:port"]);
+            MockProviderService = PactBuilder.MockService(Port);
             MockProviderService.ClearInteractions();
         }
+
+        public void Build() => PactBuilder.Build();
 
         public void SetupRequest<TRequest>(string given, string uponReceiving, HttpVerb method, IMatcher url, Dictionary<string, object> headers, TRequest requestBody)
         {

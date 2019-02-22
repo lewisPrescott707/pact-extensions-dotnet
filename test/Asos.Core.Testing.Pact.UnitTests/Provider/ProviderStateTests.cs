@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using Asos.Core.Testing.Pact.Models;
 using Asos.Core.Testing.Pact.Provider.PactVerifier;
@@ -11,6 +13,8 @@ namespace Asos.Core.Testing.Pact.UnitTests.Provider
     [TestFixture]
     public class ProviderStateTests
     {
+        private string configPath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\\Config";
+
         [Test]
         public void Given_Broker_Returns_Pact_Contract__When_Get_ProviderState_Index__Then_Index_Returned()
         {
@@ -24,7 +28,7 @@ namespace Asos.Core.Testing.Pact.UnitTests.Provider
             };
             using (var client = new HttpClient())
             {
-                var providerState = new Mock<ProviderState>(client);
+                var providerState = new Mock<ProviderState>(client, configPath);
                 providerState.Setup(x => x.PactContract).Returns(pactContract);
                 providerState.Setup(x => x.PactJson).Returns("");
 
@@ -39,7 +43,7 @@ namespace Asos.Core.Testing.Pact.UnitTests.Provider
         {
             using (var client = new HttpClient())
             {
-                var providerState = new Mock<ProviderState>(client);
+                var providerState = new Mock<ProviderState>(client, configPath);
                 providerState.Setup(x => x.PactJson).Returns("{}");
 
                 Assert.DoesNotThrow(() => providerState.Object.SerializeJsonToFile("./pact-file.json"));

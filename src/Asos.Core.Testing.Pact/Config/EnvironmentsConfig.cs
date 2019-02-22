@@ -5,12 +5,12 @@ namespace Asos.Core.Testing.Pact.Config
 {
     public class EnvironmentsConfig
     {
-        public IConfigurationRoot Config { get; }
+        public IConfigurationRoot Config { get; set; }
 
-        public EnvironmentsConfig()
+        public EnvironmentsConfig(string configPath)
         {
             Config = new ConfigurationBuilder()
-                .SetBasePath($"{Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.FullName}//src//Asos.Core.Testing.Pact//Config")
+                .SetBasePath(configPath)
                 .AddJsonFile("pact.json").Build();
 
         }

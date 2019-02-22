@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace Asos.Core.Testing.Pact.UnitTests.Provider
 
             using (var client = new HttpClient())
             {
-                var providerState = new ProviderState(client);
+                var providerState = new ProviderState(client, $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\\Config");
 
                 var pact = await providerState.GetContract(provider, consumer, client);
 
