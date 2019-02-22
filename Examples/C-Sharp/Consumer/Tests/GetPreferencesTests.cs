@@ -22,7 +22,7 @@ namespace Asos.Customer.Update.Tool.Api.PactTests.Tests
         public void SetUp()
         {
             _providerService = new ProviderService(ServiceConsumerName, ProviderName, $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\\Config");
-            _providerService.Initialize();
+            _providerService.StartMockService();
 
             _customerPreferencesGetResponse = new CustomerPreferenceWithDisplayContent();
         }
@@ -61,7 +61,7 @@ namespace Asos.Customer.Update.Tool.Api.PactTests.Tests
         [OneTimeTearDown]
         public void TearDown()
         {
-            _providerService.Build();
+            _providerService.CreatePact();
         }
     }
 }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Asos.Core.Testing.Pact" Version="0.1.14" />
+    <PackageReference Include="Asos.Core.Testing.Pact" Version="0.1.17" />
     <PackageReference Include="Asos.Customer.Preference.Api.Client" Version="0.3.2" />
     <PackageReference Include="Asos.Customer.Preference.Contracts" Version="2.0.0" />
     <PackageReference Include="Asos.Customer.Contracts" Version="5.4.0" />
