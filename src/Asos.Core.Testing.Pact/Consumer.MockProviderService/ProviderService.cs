@@ -34,14 +34,14 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
                 .HasPactWith(providerName);
         }
 
-        public void Initialize()
+        public void StartMockService()
         {
             Port = int.Parse(Config["providerService:port"]);
             MockProviderService = PactBuilder.MockService(Port);
             MockProviderService.ClearInteractions();
         }
 
-        public void Build() => PactBuilder.Build();
+        public void CreatePact() => PactBuilder.Build();
 
         public JObject ConstructRequestBody<TRequest>(TRequest request)
         {
@@ -53,9 +53,9 @@ namespace Asos.Core.Testing.Pact.Consumer.MockProviderService
             }));
         }
 
-        public JObject ConstructResponseBody<TRequest>(TRequest request)
+        public JObject ConstructResponseBody<TResponse>(TResponse response)
         {
-            var jsonRequest = request.ToDynamicResponse();
+            var jsonRequest = response.ToDynamicResponse();
             return JObject.Parse(JsonConvert.SerializeObject(jsonRequest, new JsonSerializerSettings
             {
                 ContractResolver = new JsonResolver.SkipEmptyContractResolver(),

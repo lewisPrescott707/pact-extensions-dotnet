@@ -55,7 +55,7 @@ namespace Asos.Core.Testing.Pact.UnitTests.Consumer
         public void Given_Setup_MockProviderService__Then_Access_MockProviderService_Not_Null()
         {
             var providerService = new ProviderService("consumer", "provider", configPath);
-            providerService.Initialize();
+            providerService.StartMockService();
 
             Assert.IsNotNull(providerService.MockProviderService);
         }

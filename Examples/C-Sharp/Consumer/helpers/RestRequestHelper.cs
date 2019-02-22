@@ -6,15 +6,11 @@ using RestSharp;
 
 namespace Asos.Customer.Update.Tool.Api.PactTests.helpers
 {
-    public class RestRequestHelper : ProviderService
+    public class RestRequestHelper
     {
-        public RestRequestHelper(string serviceConsumerName, string providerName) : base(serviceConsumerName, providerName)
-        {
-        }
-
         public static void Get<TRequest, TResponse>(string url, Method method, TRequest requestJson)
         {
-            var restClient = new RestClient($"{BaseUri}:{Port}");
+            var restClient = new RestClient("http://localhost:1234");
             var request = new RestRequest(url, method)
             {
                 RequestFormat = DataFormat.Json,
@@ -36,9 +32,10 @@ namespace Asos.Customer.Update.Tool.Api.PactTests.helpers
             var response = restClient.Deserialize<TResponse>(restClient.Execute(request)).Content.FirstOrDefault().ToString();
             Assert.NotNull(response);
         }
-        public static void Get<TResponse>(string url, Method method)
+
+        public static void Get<TResponse>(string url, Method method, int port)
         {
-            var restClient = new RestClient($"{BaseUri}:{Port}");
+            var restClient = new RestClient($"http://localhost:{port}");
             var request = new RestRequest(url, method)
             {
                 RequestFormat = DataFormat.Json,
