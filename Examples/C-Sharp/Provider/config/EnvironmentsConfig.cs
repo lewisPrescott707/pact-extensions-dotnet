@@ -5,43 +5,12 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace Asos.Customer.Preference.PactTests.config
+namespace PactTests.config
 {
     public partial class EnvironmentsConfig
     {
-        [JsonProperty("environments")]
-        public List<IdentityEnvironment> Environments { get; set; }
         [JsonProperty("pactBroker")]
         public PactBroker PactBroker { get; set; }
-        [JsonProperty("endpoints")]
-        public Endpoints Endpoints { get; set; }
-    }
-
-    public class Endpoints
-    {
-        [JsonProperty("preferences")]
-        public PreferencesEndpoints Preferences { get; set; }
-    }
-
-    public class PreferencesEndpoints
-    {
-        [JsonProperty("get")]
-        public string Get { get; set; }
-    }
-
-    public class IdentityEnvironment
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("customerApi")]
-        public CustomerApi CustomerApi { get; set; }
-    }
-
-    public class CustomerApi
-    {
-        [JsonProperty("url")]
-        public string Url { get; set; }
     }
 
     public class PactBroker
@@ -60,8 +29,6 @@ namespace Asos.Customer.Preference.PactTests.config
     {
         public static IConfiguration Configuration { get; set; }
 
-        private static string _selectedEnvrionmentName;
-
         private static string _selectedPactsDirectory;
 
         private static readonly string BinDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Replace(@"file:\", "");
@@ -74,7 +41,6 @@ namespace Asos.Customer.Preference.PactTests.config
                 .SetBasePath(Directory.GetParent(BinDirectory).Parent.Parent.FullName)
                 .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
-            _selectedEnvrionmentName = Configuration.GetValue<string>("AppSettings:SelectedIdentityEnvironment");
             _selectedPactsDirectory = Configuration.GetValue<string>("AppSettings:SelectedPactDirectory");
             _jsonConfigPath =
                 $"{Directory.GetParent(BinDirectory).Parent.Parent.FullName}\\{Configuration.GetValue<string>("AppSettings:EnvironmentsConfigPath")}";
@@ -103,11 +69,6 @@ namespace Asos.Customer.Preference.PactTests.config
         private static string SetPactUrl(string providerName = "", string consumerName = "")
         {
             return $"pacts/provider/{providerName}/consumer/{consumerName}/latest";
-        }
-
-        public virtual IdentityEnvironment SelectedEnvironment
-        {
-            get { return Environments.FirstOrDefault(x => x.Name.Equals(_selectedEnvrionmentName, StringComparison.InvariantCultureIgnoreCase)); }
         }
     }
 }

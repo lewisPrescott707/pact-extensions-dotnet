@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Asos.Customer.Preference.PactTests.config
+namespace PactTests.config
 {
     public class JsonSettings
     {

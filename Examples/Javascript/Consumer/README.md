@@ -1,6 +1,6 @@
 # The Example Consumer Project
 
-System Preferences - Customer Profile API. Consumed by Identity Web.
+Webpage: https://httpstat.us/200
 
 ## Running the tests
 
@@ -10,7 +10,3 @@ System Preferences - Customer Profile API. Consumed by Identity Web.
 ## Running in docker
 1. build from terminal `docker build -t pact-tests .`
 2. run `docker run -t pact-tests pacts`
-
-### TODO
-
-- Publish to asos pact broker

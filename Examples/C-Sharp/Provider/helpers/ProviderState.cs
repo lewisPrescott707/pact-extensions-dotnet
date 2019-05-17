@@ -1,20 +1,18 @@
 ﻿using System.IO;
 using System.Linq;
-using Asos.Customer.Contracts.Profile.V2.Rest.Customer;
-using Asos.Customer.Preference.PactTests.config;
-using Asos.Customer.Preference.PactTests.models;
+using PactTests.models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PactTests.config;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Asos.Customer.Preference.PactTests.helpers
+namespace PactTests.helpers
 {
     public class ProviderState
     {
         private readonly EnvironmentsConfig _config;
         private readonly JObject _pactJson;
-        private CustomerResponseV2 _customer;
         internal PactContract PactContract { get; set; }
         private readonly string _localDirectory;
 
@@ -33,23 +31,11 @@ namespace Asos.Customer.Preference.PactTests.helpers
             _localDirectory = localDirectory;
         }
 
-        public async void SetDynamicPathAndFields(string providerState)
+        public void SetDynamicPathAndFields(string providerState)
         {
             switch (providerState)
             {
-                case "A Customer With Preferences Exists":
-                    var customerGuid = PactContract.Interactions.First(x => x.ProviderState == providerState).Request.Path.ToString().Split('/')[5];
-                    var index = GetIndex(providerState);
-                    var customer = new Customer();
-                    var findCustomer = customer.Find(customerGuid).Result;
-                    if (findCustomer.Data.TotalFound == 0)
-                    {
-                        _customer = await customer.Create();
-                        var update = await customer.Update(_customer, customerGuid);
-                        _customer = update.Data;
-                        UpdatePath(providerState, index);
-                        SerializeJsonToFile(_localDirectory);
-                    }
+                case "Database entry exists":
                     break;
                 default:
                     break;
@@ -78,8 +64,8 @@ namespace Asos.Customer.Preference.PactTests.helpers
         {
             switch (providerState)
             {
-                case "A Customer With Preferences Exists":
-                    _pactJson["interactions"][index]["request"]["path"] = $"{_config.Endpoints.Preferences.Get}/{_customer.CustomerGuid}";
+                case "Database entry exists":
+                    //_pactJson["interactions"][index]["request"]["path"] = $"{_config.Endpoints.Preferences.Get}/";
                     break;
                 default:
                     break;

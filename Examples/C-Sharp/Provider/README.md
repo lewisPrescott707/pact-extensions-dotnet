@@ -1,16 +1,12 @@
 # The Example Provider Project
 
-System Preferences / Update Preferences - Customer Preferences API. Consumed by Identity Web / Customer Update Tool.
+Using example json response from http://echo.jsontest.com/pact/1.
 
 ## Running the tests
 
-#### Before test run
-- Set environment "appsettings.json" (Environments can be found in `config/environments.json`)
-
-#### Running tests
-1. `dotnet test .\Asos.Customer.Preference.PactTests.csproj`
-    - _note: customer creation can fail on test setup, pending polly implementation_
+### Running tests
+1. `dotnet test .\PactTests.csproj`
 
 ### Pact Broker
 
-Pacts stored: https://asos.pact.dius.com.au/
+Pacts stored: https://pact-broker.cloudapps.digital/
