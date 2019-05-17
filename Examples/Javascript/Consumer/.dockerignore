@@ -1,0 +1,8 @@
+.gitignore
+.dockerignore
+
+# Dependency directory
+node_modules
+
+# Pacts
+pacts/

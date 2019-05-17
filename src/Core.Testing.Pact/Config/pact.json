@@ -1,0 +1,14 @@
+{
+  "pactBroker": {
+    "url": "https://pact-broker.cloudapps.digital/",
+    "username": "",
+    "password": ""
+  },
+  "providerService": {
+    "port": 1234
+  },
+  "pactConfig": {
+    "pactDir": "C:\\Pact",
+    "specificationVersion": "2.0.0"
+  } 
+}
