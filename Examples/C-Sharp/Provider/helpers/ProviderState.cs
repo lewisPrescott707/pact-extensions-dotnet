@@ -12,7 +12,7 @@ namespace PactTests.helpers
     public class ProviderState
     {
         private readonly EnvironmentsConfig _config;
-        private readonly JObject _pactJson;
+        private JObject _pactJson;
         internal PactContract PactContract { get; set; }
         private readonly string _localDirectory;
 
@@ -38,6 +38,8 @@ namespace PactTests.helpers
                 case "Database entry exists":
                     break;
                 default:
+                    _pactJson = JObject.Parse("{\r\n  \"consumer\": {\r\n    \"name\": \"Web\"\r\n  },\r\n  \"provider\": {\r\n    \"name\": \"Api\"\r\n  },\r\n  \"interactions\": [\r\n    {\r\n      \"description\": \"a request to get response\",\r\n      \"providerState\": \"200 Response\",\r\n      \"request\": {\r\n        \"method\": \"GET\",\r\n        \"path\": \"/pact/1\",\r\n        \"headers\": {\r\n          \"Accept\": \"application/json, text/plain, */*\"\r\n        }\r\n      },\r\n      \"response\": {\r\n        \"status\": 200,\r\n        \"headers\": {\r\n          \"Content-Type\": \"application/json\"\r\n        },\r\n        \"body\": {\r\n          \"pact\": \"1\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"metadata\": {\r\n    \"pactSpecification\": {\r\n      \"version\": \"2.0.0\"\r\n    }\r\n  }\r\n}");
+                    SerializeJsonToFile(_localDirectory);
                     break;
             }
         }
@@ -65,7 +67,6 @@ namespace PactTests.helpers
             switch (providerState)
             {
                 case "Database entry exists":
-                    //_pactJson["interactions"][index]["request"]["path"] = $"{_config.Endpoints.Preferences.Get}/";
                     break;
                 default:
                     break;

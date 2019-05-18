@@ -1,0 +1,7 @@
+{
+  "pactBroker": {
+    "host": "https://pact-broker.cloudapps.digital",
+    "username": "",
+    "password": ""
+  }
+}

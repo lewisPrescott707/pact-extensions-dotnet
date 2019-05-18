@@ -2,6 +2,7 @@
 using System.IO;
 using NUnit.Framework;
 using PactNet;
+using PactTests.helpers;
 
 namespace PactTests.Tests
 {
@@ -11,8 +12,8 @@ namespace PactTests.Tests
         private readonly IPactVerifier _pactVerifier;
         private readonly string _serviceUri;
         private readonly string _pactDirectory;
-        private const string ProviderName = "Api";
-        private const string ConsumerName = "Web";
+        private const string ProviderName = "Publishing%20API";
+        private const string ConsumerName = "GDS%20API%20Adapters";
 
         public WebTests()
         {
@@ -22,7 +23,17 @@ namespace PactTests.Tests
                 ProviderVersion = "2.0.0"
             };
             _pactVerifier = new PactVerifier(pactVerifierConfig);
-            _pactDirectory = $"{Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName}/pacts/web-api.json";
+            _pactDirectory = $"{Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName}/pacts/updated-pact.json";
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            var providerState = new ProviderState(ProviderName, ConsumerName, _pactDirectory);
+            foreach (var interaction in providerState.PactContract.Interactions)
+            {
+                providerState.SetDynamicPathAndFields(interaction.ProviderState);
+            }
         }
   
         [Test]
